@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% set title = "EduShield AI | " ~ page_title %}
+{% set body_class = "black-app" %}
+{% block content %}
+<main class="app-shell">
+  <aside class="sidebar">
+    <a class="brand" href="{{ url_for('landing') }}">
+      <span class="brand-mark"></span>
+      <span>
+        <strong>EduShield AI</strong>
+        <small>Dropout Risk System</small>
+      </span>
+    </a>
+
+    <div class="sidebar-section">
+      <p class="sidebar-label">Navigation</p>
+      <a class="nav-item" href="{{ url_for('dashboard') }}">Students</a>
+      <a class="nav-item active" href="#">{{ page_title }}</a>
+    </div>
+  </aside>
+
+  <section class="main-panel">
+    <header class="dashboard-header">
+      <div>
+        <h1>{{ page_title }}</h1>
+        <p>Manage student records with persistent backend storage.</p>
+      </div>
+      <div class="top-strip-actions">
+        <a class="outline-button" href="{{ url_for('dashboard') }}">Back To Dashboard</a>
+      </div>
+    </header>
+
+    <section class="form-card">
+      <form method="post" class="student-form-grid">
+        <label>
+          <span>Student Code</span>
+          <input type="text" name="student_code" value="{{ student.student_code if student else '' }}" required>
+        </label>
+        <label>
+          <span>Full Name</span>
+          <input type="text" name="full_name" value="{{ student.full_name if student else '' }}" required>
+        </label>
+        <label>
+          <span>Email</span>
+          <input type="email" name="email" value="{{ student.email if student else '' }}" required>
+        </label>
+        <label>
+          <span>Department</span>
+          <input type="text" name="department" value="{{ student.department if student else '' }}" required>
+        </label>
+        <label>
+          <span>Year</span>
+          <input type="text" name="year_label" value="{{ student.year_label if student else '' }}" placeholder="Year 2" required>
+        </label>
+        <label>
+          <span>GPA</span>
+          <input type="number" name="gpa" min="0" max="4" step="0.01" value="{{ student.gpa if student else '' }}" required>
+        </label>
+        <label>
+          <span>Attendance (%)</span>
+          <input type="number" name="attendance" min="0" max="100" value="{{ student.attendance if student else '' }}" required>
+        </label>
+        <label>
+          <span>Engagement (%)</span>
+          <input type="number" name="engagement" min="0" max="100" value="{{ student.engagement if student else '' }}" required>
+        </label>
+        <div class="form-actions">
+          <button class="primary-button" type="submit">{{ page_title }}</button>
+          <a class="outline-button" href="{{ url_for('dashboard') }}">Cancel</a>
+        </div>
+      </form>
+    </section>
+  </section>
+</main>
+{% endblock %}

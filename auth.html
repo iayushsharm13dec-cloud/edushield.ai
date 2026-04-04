@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% set title = "EduShield AI | Access Portal" %}
+{% set body_class = "black-auth" %}
+{% block content %}
+<main class="auth-layout">
+  <section class="auth-showcase">
+    <a class="brand" href="{{ url_for('landing') }}">
+      <span class="brand-mark"></span>
+      <span>
+        <strong>EduShield AI</strong>
+        <small>Dropout Risk System</small>
+      </span>
+    </a>
+    <p class="section-tag">Secure Access</p>
+    <h1>Enter the academic risk intelligence portal.</h1>
+    <p>Log in to monitor student profiles, or create a new account to use the backend-powered dashboard.</p>
+
+    <div class="auth-preview-card">
+      <div>
+        <strong>Persistent records</strong>
+        <span>Student data is stored in SQLite</span>
+      </div>
+      <div>
+        <strong>Working actions</strong>
+        <span>Add, edit, and delete students from the dashboard</span>
+      </div>
+      <div>
+        <strong>AI-ready</strong>
+        <span>Prepared for predictive scoring logic and future models</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="auth-panel">
+    <div class="toggle-row">
+      <button class="toggle-button active" type="button" data-form-target="login-form">Log In</button>
+      <button class="toggle-button" type="button" data-form-target="signup-form">Sign Up</button>
+    </div>
+
+    <form id="login-form" class="auth-form active" method="post" action="{{ url_for('login') }}">
+      <h2>Log in</h2>
+      <label>
+        <span>Email Address</span>
+        <input type="email" name="email" value="admin@university.edu" required>
+      </label>
+      <label>
+        <span>Password</span>
+        <input type="password" name="password" value="admin123" required>
+      </label>
+      <button class="primary-button full-width" type="submit">Go To Dashboard</button>
+    </form>
+
+    <form id="signup-form" class="auth-form" method="post" action="{{ url_for('signup') }}">
+      <h2>Create account</h2>
+      <label>
+        <span>Full Name</span>
+        <input type="text" name="full_name" placeholder="Your full name" required>
+      </label>
+      <label>
+        <span>Email Address</span>
+        <input type="email" name="email" placeholder="name@university.edu" required>
+      </label>
+      <label>
+        <span>Password</span>
+        <input type="password" name="password" placeholder="Create password" required>
+      </label>
+      <button class="primary-button full-width" type="submit">Create Account</button>
+    </form>
+  </section>
+</main>
+{% endblock %}

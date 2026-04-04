@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% set title = "EduShield AI | Dropout Risk Platform" %}
+{% set body_class = "black-app" %}
+{% block content %}
+<main class="app-shell marketing-shell">
+  <aside class="sidebar">
+    <a class="brand" href="{{ url_for('landing') }}">
+      <span class="brand-mark"></span>
+      <span>
+        <strong>EduShield AI</strong>
+        <small>Dropout Risk System</small>
+      </span>
+    </a>
+
+    <div class="sidebar-section">
+      <p class="sidebar-label">Navigation</p>
+      <a class="nav-item active" href="#overview">Overview</a>
+      <a class="nav-item" href="#problem">Problem</a>
+      <a class="nav-item" href="#solution">Solution</a>
+      <a class="nav-item" href="#objectives">Objectives</a>
+      <a class="nav-item" href="{{ url_for('dashboard') }}">Dashboard</a>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="avatar-badge">AI</div>
+      <div>
+        <strong>University Portal</strong>
+        <small>Retention intelligence system</small>
+      </div>
+    </div>
+  </aside>
+
+  <section class="main-panel">
+    <header class="top-strip">
+      <div>
+        <h1 id="overview">Predict dropout risk before students disengage.</h1>
+        <p>A full academic monitoring platform that combines attendance, GPA, and engagement data to drive early interventions.</p>
+      </div>
+      <div class="top-strip-actions">
+        <a class="outline-button" href="{{ url_for('auth') }}">Log In</a>
+        <a class="primary-button" href="{{ url_for('dashboard') }}">Open Dashboard</a>
+      </div>
+    </header>
+
+    <section class="hero-card dark-surface" id="problem">
+      <div class="hero-copy">
+        <p class="section-tag">Problem Description</p>
+        <h2>Student dropout is a critical issue affecting academic performance and institutional outcomes.</h2>
+        <p>Universities often lack predictive systems to identify at-risk students early. EduShield AI turns academic data into timely intervention signals.</p>
+        <div class="hero-actions">
+          <a class="primary-button" href="{{ url_for('auth') }}">Start With Login</a>
+          <a class="outline-button" href="{{ url_for('dashboard') }}">See Live Records</a>
+        </div>
+      </div>
+      <div class="mini-panel">
+        <div class="panel-card">
+          <span class="metric-label">Risk Signals</span>
+          <strong>Attendance + GPA + Engagement</strong>
+          <p>One view of the three academic signals that matter most to early dropout detection.</p>
+        </div>
+        <div class="panel-card">
+          <span class="metric-label">Outcome</span>
+          <strong>Predictive dashboards and intervention reports</strong>
+          <p>Faculty can identify priority students and act before problems become permanent.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-grid" id="solution">
+      <article class="surface-card">
+        <p class="section-tag">Proposed Solution</p>
+        <h3>A deployed academic risk monitoring system with predictive analytics, dashboards, and intervention-ready records.</h3>
+        <p>This version includes real backend routes, persistent storage, account creation, and working student management actions.</p>
+      </article>
+      <article class="surface-card">
+        <p class="section-tag">Problem Type</p>
+        <h3>University</h3>
+        <p>Built for campuses and community education programs that want a practical retention support platform.</p>
+      </article>
+    </section>
+
+    <section class="triple-grid" id="objectives">
+      <article class="surface-card">
+        <p class="section-tag">Objectives</p>
+        <ul class="clean-list">
+          <li>Apply AI for educational data analysis</li>
+          <li>Learn predictive modeling techniques</li>
+          <li>Understand community-oriented problem solving</li>
+          <li>Build institutional decision-support systems</li>
+        </ul>
+      </article>
+      <article class="surface-card">
+        <p class="section-tag">Technology Stack</p>
+        <div class="chip-row">
+          <span>Python</span>
+          <span>Flask</span>
+          <span>SQLite</span>
+          <span>Machine Learning Ready</span>
+        </div>
+      </article>
+      <article class="surface-card">
+        <p class="section-tag">Demo Access</p>
+        <h3>Default admin login</h3>
+        <p>Email: <strong>admin@university.edu</strong><br>Password: <strong>admin123</strong></p>
+      </article>
+    </section>
+  </section>
+</main>
+{% endblock %}

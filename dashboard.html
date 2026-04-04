@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% set title = "EduShield AI | Dashboard" %}
+{% set body_class = "black-app" %}
+{% block content %}
+<main class="app-shell">
+  <aside class="sidebar">
+    <a class="brand" href="{{ url_for('landing') }}">
+      <span class="brand-mark"></span>
+      <span>
+        <strong>EduShield AI</strong>
+        <small>Dropout Risk System</small>
+      </span>
+    </a>
+
+    <div class="sidebar-section">
+      <p class="sidebar-label">Navigation</p>
+      <a class="nav-item active" href="{{ url_for('dashboard') }}">Students</a>
+      <a class="nav-item" href="{{ url_for('create_student') }}">Add Student</a>
+      <a class="nav-item" href="{{ url_for('landing') }}#solution">Solution</a>
+      <a class="nav-item" href="{{ url_for('landing') }}#objectives">Objectives</a>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="avatar-badge">{{ current_user["full_name"][0]|upper if current_user else "A" }}</div>
+      <div>
+        <strong>{{ current_user["full_name"] if current_user else "Admin" }}</strong>
+        <small>{{ current_user["email"] if current_user else "University Portal" }}</small>
+      </div>
+    </div>
+  </aside>
+
+  <section class="main-panel">
+    <header class="dashboard-header">
+      <div>
+        <h1>Students Dashboard</h1>
+        <p>Monitor and manage student risk profiles with live backend records.</p>
+      </div>
+      <div class="top-strip-actions">
+        <a class="primary-button" href="{{ url_for('create_student') }}">+ Add Student</a>
+        <form method="post" action="{{ url_for('logout') }}">
+          <button class="outline-button" type="submit">Log Out</button>
+        </form>
+      </div>
+    </header>
+
+    <section class="stats-grid">
+      <article class="stat-card">
+        <span>Total Students</span>
+        <strong>{{ stats.total }}</strong>
+      </article>
+      <article class="stat-card">
+        <span>High Risk</span>
+        <strong>{{ stats.high }}</strong>
+      </article>
+      <article class="stat-card">
+        <span>Medium Risk</span>
+        <strong>{{ stats.medium }}</strong>
+      </article>
+      <article class="stat-card">
+        <span>Low Risk</span>
+        <strong>{{ stats.low }}</strong>
+      </article>
+    </section>
+
+    <form class="toolbar" method="get" action="{{ url_for('dashboard') }}">
+      <div class="search-box">
+        <span class="search-icon">⌕</span>
+        <input type="text" name="search" value="{{ search }}" placeholder="Search by name, ID, email, department...">
+      </div>
+      <select class="risk-filter" name="risk">
+        {% for option in ["All Risks", "High Risk", "Medium Risk", "Low Risk"] %}
+          <option value="{{ option }}" {% if option == risk_filter %}selected{% endif %}>{{ option }}</option>
+        {% endfor %}
+      </select>
+      <button class="outline-button" type="submit">Filter</button>
+    </form>
+
+    <section class="table-card">
+      <table>
+        <thead>
+          <tr>
+            <th>Student</th>
+            <th>Department</th>
+            <th>Year</th>
+            <th>GPA</th>
+            <th>Attendance</th>
+            <th>Risk Score</th>
+            <th>Risk Level</th>
+            <th>Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for student in students %}
+            <tr>
+              <td>
+                <strong>{{ student.full_name }}</strong>
+                <span>{{ student.student_code }}</span>
+                <span>{{ student.email }}</span>
+              </td>
+              <td>{{ student.department }}</td>
+              <td>{{ student.year_label }}</td>
+              <td class="{% if student.gpa < 2.5 %}danger-text{% endif %}">{{ "%.2f"|format(student.gpa) }}</td>
+              <td>
+                <div class="bar-row">
+                  <span class="bar {% if student.attendance < 70 %}danger{% else %}success{% endif %}" style="width: {{ student.attendance }}%"></span>
+                  <em>{{ student.attendance }}%</em>
+                </div>
+              </td>
+              <td>
+                <div class="bar-row">
+                  <span class="bar {% if student.risk_level == 'High' %}high{% elif student.risk_level == 'Medium' %}warning{% else %}success{% endif %}" style="width: {{ student.risk_score }}%"></span>
+                  <em>{{ student.risk_score }}</em>
+                </div>
+              </td>
+              <td>
+                <span class="pill {% if student.risk_level == 'High' %}high-pill{% elif student.risk_level == 'Medium' %}warning-pill{% else %}success-pill{% endif %}">
+                  {{ student.risk_level }}
+                </span>
+              </td>
+              <td>
+                <div class="table-actions">
+                  <a class="mini-button" href="{{ url_for('edit_student', student_id=student.id) }}">Edit</a>
+                  <form method="post" action="{{ url_for('delete_student', student_id=student.id) }}" class="inline-form">
+                    <button class="mini-button danger-button" type="submit" data-confirm="Delete {{ student.full_name }}?">Delete</button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="8" class="empty-state">No students match the current filters.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  </section>
+</main>
+{% endblock %}
